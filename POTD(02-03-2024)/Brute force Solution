@@ -27,3 +27,6 @@ class Solution {
         return true;
     }
 }
+/* O(n) time
+uses O(1) space
+*/
