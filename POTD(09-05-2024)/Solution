@@ -1,0 +1,44 @@
+class Solution {
+    public long maximumHappinessSum(int[] happiness, int numChildrenToSelect) {
+        // Sort the happiness array in descending order
+        Arrays.sort(happiness);
+        reverse(happiness);
+
+        long maxHappiness = 0;
+        int decrementedChildrenCount = 0;
+
+        // Iterate through the sorted array and select the numChildrenToSelect children with the highest happiness values
+        for (int i = 0; i < happiness.length && numChildrenToSelect > 0; i++) {
+            // Calculate the current maximum happiness value after decrementing the remaining values
+            int currentChildHappiness = happiness[i] - decrementedChildrenCount;
+
+            // If the current maximum happiness value is negative, set it to 0
+            currentChildHappiness = Math.max(currentChildHappiness, 0);
+
+            // Add the current maximum happiness value to the total
+            maxHappiness += currentChildHappiness;
+
+            // Increment the decrement count for the next iteration
+            decrementedChildrenCount++;
+
+            // Decrement the remaining number of children to select
+            numChildrenToSelect--;
+        }
+
+        return maxHappiness;
+    }
+
+    // Helper method to reverse an array in-place
+    private void reverse(int[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
