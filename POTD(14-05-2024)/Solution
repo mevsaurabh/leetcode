@@ -1,0 +1,47 @@
+class Solution {
+    private int maxGold = 0;
+    private int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public int getMaximumGold(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+
+        // Traverse the grid and start DFS from each non-zero cell
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] > 0) {
+                    dfs(grid, i, j, 0);
+                }
+            }
+        }
+
+        return maxGold;
+    }
+
+    private void dfs(int[][] grid, int x, int y, int currGold) {
+        // Mark the current cell as visited by setting it to 0
+        int temp = grid[x][y];
+        grid[x][y] = 0;
+
+        // Update the maximum gold collected
+        currGold += temp;
+        maxGold = Math.max(maxGold, currGold);
+
+        // Explore all valid neighbors
+        for (int[] dir : directions) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+
+            if (isValid(grid, newX, newY)) {
+                dfs(grid, newX, newY, currGold);
+            }
+        }
+
+        // Restore the current cell's value
+        grid[x][y] = temp;
+    }
+
+    private boolean isValid(int[][] grid, int x, int y) {
+        int m = grid.length, n = grid[0].length;
+        return x >= 0 && x < m && y >= 0 && y < n && grid[x][y] > 0;
+    }
+}
