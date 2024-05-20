@@ -1,0 +1,23 @@
+class Solution {
+    public int subsetXORSum(int[] nums) {
+        return calculateXORSum(nums, 0, 0);
+    }
+
+    private int calculateXORSum(int[] nums, int index, int currXOR) {
+        int totalXORSum = 0;
+        
+        // Base case: If we have reached the end of the array
+        if (index == nums.length) {
+            // Add the current XOR value to the total XOR sum
+            return currXOR;
+        }
+        
+        // Include the current element
+        totalXORSum += calculateXORSum(nums, index + 1, currXOR ^ nums[index]);
+        
+        // Exclude the current element
+        totalXORSum += calculateXORSum(nums, index + 1, currXOR);
+        
+        return totalXORSum;
+    }
+}
