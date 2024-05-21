@@ -1,0 +1,25 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        # Initialize an empty list to store the subsets
+        subsets = []
+
+        def backtrack(start_index, curr_subset):
+    
+            # Add the current subset to the list of subsets
+            subsets.append(curr_subset[:])
+
+            # Iterate over the remaining elements
+            for i in range(start_index, len(nums)):
+                # Add the current element to the current subset
+                curr_subset.append(nums[i])
+
+                # Recursively construct subsets with the remaining elements
+                backtrack(i + 1, curr_subset)
+
+                # Backtrack by removing the last added element
+                curr_subset.pop()
+
+        # Start the backtracking process with an empty subset
+        backtrack(0, [])
+
+        return subsets
