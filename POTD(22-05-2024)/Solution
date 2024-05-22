@@ -1,0 +1,17 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def backtrack(start, path, res):
+            if start == len(s):
+                res.append(path[:])
+                return
+
+            for end in range(start, len(s)):
+                if s[start : end + 1] == s[start : end + 1][::-1]:
+                    path.append(s[start : end + 1])
+                    backtrack(end + 1, path, res)
+                    path.pop()
+
+        res = []
+        backtrack(0, [], res)
+        return res
+
