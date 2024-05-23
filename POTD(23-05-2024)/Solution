@@ -1,0 +1,34 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public int beautifulSubsets(int[] nums, int k) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+
+        for (int num : nums) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+        int totalCount = 1;
+        int prevCount = 0; 
+        int prevPrevCount = 0; 
+
+        for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
+            int curNum = entry.getKey(); 
+            int curCount = entry.getValue(); 
+
+            if (countMap.containsKey(curNum - k)) {
+                continue;
+            }
+            prevCount = 0;
+
+            while (countMap.containsKey(curNum)) {
+                int temp = prevCount;
+                prevCount = ((1 << countMap.get(curNum)) - 1) * totalCount;
+                totalCount += temp;
+                curNum += k;
+            }
+            totalCount += prevCount;
+        }
+        return totalCount - 1;
+    }
+}
