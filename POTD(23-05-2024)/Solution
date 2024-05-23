@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Solution {
     public int beautifulSubsets(int[] nums, int k) {
         Map<Integer, Integer> countMap = new HashMap<>();
