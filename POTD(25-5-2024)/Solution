@@ -1,0 +1,19 @@
+class Solution:
+    def helper(self,s,ans,i,wordd,res):
+        if(i==len(s)):
+            res.append(ans)
+            return
+        for j in range(i+1,len(s)+1):
+            ss = s[i:j]
+            if ss in wordd:
+                self.helper(s,(ans+" "+ ss),j,wordd,res)
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        res = []
+        self.helper(s,"",0,wordDict,res)
+        for i in range(len(res)):
+            nans = res[i][1:]
+            res[i] = nans
+        return res
+
+        
