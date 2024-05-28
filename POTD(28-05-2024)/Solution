@@ -1,0 +1,18 @@
+class Solution:
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        l,r,res,cur=0,0,0,maxCost
+        while r<len(s):
+            temp=abs(ord(s[r])-ord(t[r]))
+            if temp<=cur:
+                cur-=temp
+                res=max(res,r-l+1)
+                r+=1
+            else:
+                if l==r:
+                    r+=1
+                    l+=1
+                    cur=maxCost
+                else:
+                    cur+=abs(ord(s[l])-ord(t[l]))
+                    l+=1
+        return res
