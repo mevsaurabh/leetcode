@@ -1,0 +1,15 @@
+class Solution:
+    def numSteps(self, s: str) -> int:
+        # Convert the binary string to an integer
+        num = int(s, 2)
+        count = 0
+        
+        # Perform the steps until the number becomes 1
+        while num != 1:
+            if num % 2 == 0:
+                num //= 2  # Integer division
+            else:
+                num += 1
+            count += 1
+        
+        return count
