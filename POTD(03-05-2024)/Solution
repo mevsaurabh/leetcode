@@ -1,0 +1,19 @@
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        def is_subsequence(a: str, b: str) -> bool:
+            i, j = 0, 0
+            while i < len(a) and j < len(b):
+                if a[i] == b[j]:
+                    j += 1
+                i += 1
+            return j == len(b)
+
+        if is_subsequence(s, t):
+            return 0
+
+        i, j = 0, 0
+        count = 0
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                j += 1
+            i += 1
