@@ -1,24 +1,59 @@
+class TrieNode:
+    def __init__(self):
+        # Initialize an empty dictionary to store child nodes
+        self.children = {}
+        # Flag to mark the end of a word
+        self.is_end = False
+
 class Solution:
-    def maxOccured(self, n, l, r, maxx):
-        # Create a counting array of size maxx+1 to store the frequency of each integer
-        count = [0] * (maxx + 1)
-        
-        # Iterate over the ranges
-        for i in range(n):
-            # Increment the count of the starting point of the range
-            count[l[i]] += 1
-            # Decrement the count of the next element after the endpoint of the range
-            if r[i] < maxx:
-                count[r[i] + 1] -= 1
-        
-        # Find the maximum frequency and the smallest integer with the maximum frequency
-        max_freq = 0
-        max_num = 0
-        freq = 0
-        for i in range(maxx + 1):
-            freq += count[i]
-            if freq > max_freq:
-                max_freq = freq
-                max_num = i
-        
-        return max_num
+    def __init__(self):
+        # Initialize the root node of the Trie
+        self.root = TrieNode()
+
+    def insert(self, word):
+        # Start from the root node
+        node = self.root
+        # Iterate through each character in the word
+        for char in word:
+            # If the character is not a child of the current node,
+            # create a new child node
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            # Move to the child node
+            node = node.children[char]
+        # Mark the end of the word
+        node.is_end = True
+
+    def search_root(self, word):
+        # Start from the root node
+        node = self.root
+        prefix = ""
+        # Iterate through each character in the word
+        for char in word:
+            # If the character is not a child of the current node,
+            # the word is not in the Trie, so break the loop
+            if char not in node.children:
+                break
+            # Move to the child node and append the character to the prefix
+            node = node.children[char]
+            prefix += char
+            # If the current node is the end of a word,
+            # return the prefix as the shortest root in the Trie
+            if node.is_end:
+                return prefix
+        # If no root is found, return the original word
+        return word
+
+    def replaceWords(self, dictionary, sentence):
+        # Build the Trie from the dictionary words
+        for word in dictionary:
+            self.insert(word)
+
+        # Split the sentence into individual words
+        words = sentence.split()
+
+        # Replace each word with its shortest root in the Trie
+        replaced_words = [self.search_root(word) for word in words]
+
+        # Join the replaced words back into a sentence
+        return " ".join(replaced_words)
