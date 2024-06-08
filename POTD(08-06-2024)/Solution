@@ -1,0 +1,30 @@
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        # Create a dictionary to store the remainders and their indices
+        remainder_cache = {0: -1}
+
+        # Initialize the remainder
+        remainder = 0
+
+        # Iterate through the array
+        for i in range(len(nums)):
+            # Update the remainder
+            remainder += nums[i]
+
+            # If k is not 0, take the remainder with respect to k
+            if k != 0:
+                remainder %= k
+
+            # Check if the remainder is in the cache
+            if remainder not in remainder_cache:
+                # If not, add it to the cache with the current index
+                remainder_cache[remainder] = i
+            else:
+                # If the remainder is in the cache and the distance between the current index
+                # and the index in the cache is at least 2, it means we have found a subarray
+                # with a sum divisible by k
+                if i - remainder_cache[remainder] >= 2:
+                    return True
+
+        # If no such subarray is found, return False
+        return False
