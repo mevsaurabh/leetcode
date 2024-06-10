@@ -1,0 +1,19 @@
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        # Create a sorted copy of the heights list
+        sort_heights = sorted(heights)
+
+        # Initialize a counter for the number of mismatched elements
+        mismatched_count = 0
+
+        # Iterate over the original heights list and the sorted copy
+        for i in range(len(heights)):
+            # If the height at the current index in the original list
+            # doesn't match the height at the same index in the sorted copy,
+            # increment the mismatched_count
+            if heights[i] != sort_heights[i]:
+                mismatched_count += 1
+
+        # Return the mismatched_count, which represents the minimum number
+        # of students that need to move to form a non-decreasing height sequence
+        return mismatched_count
