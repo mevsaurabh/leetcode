@@ -1,0 +1,1 @@
+https://leetcode.com/problems/height-checker/?envType=daily-question&envId=2024-06-10
