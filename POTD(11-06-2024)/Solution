@@ -1,0 +1,10 @@
+class Solution:
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        count = {num: arr1.count(num) for num in set(arr1)}
+        result = []
+        for num in arr2:
+            result.extend([num] * count.get(num, 0))
+            count.pop(num, None)  
+        remaining = sorted([num for num, freq in count.items() for _ in range(freq)])
+        result.extend(remaining)  
+        return result
