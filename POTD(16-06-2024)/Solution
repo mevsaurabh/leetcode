@@ -1,0 +1,12 @@
+class Solution:
+    def minPatches(self, nums: List[int], n: int) -> int:
+        currently_missing,patches_required=1,0
+        current_nums_idx=0
+        while currently_missing<=n:
+            if current_nums_idx<len(nums) and nums[current_nums_idx]<=currently_missing:
+                currently_missing+=nums[current_nums_idx]
+                current_nums_idx+=1
+            else:
+                currently_missing+=currently_missing
+                patches_required+=1
+        return patches_required
