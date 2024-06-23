@@ -1,17 +1,21 @@
 class Solution:
-    def bracketNumbers(self, s):
-        n = len(s)
-        dp = [0] * n
-        stack = []
-        count = 1
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        n = len(nums)
+        max_len = 0
+        min_val, max_val = float('inf'), float('-inf')
+        left = 0
 
-        for i in range(n):
-            if s[i] == '(':
-                stack.append((i, count))
-                dp[i] = count
-                count += 1
-            elif s[i] == ')' and stack:
-                open_index, open_count = stack.pop()
-                dp[i] = open_count
+        for right in range(n):
+            min_val = min(min_val, nums[right])
+            max_val = max(max_val, nums[right])
 
-        return [num for num in dp if num != 0]
+            while max_val - min_val > limit:
+                if nums[left] == min_val:
+                    min_val = min(nums[left+1:right+1])
+                if nums[left] == max_val:
+                    max_val = max(nums[left+1:right+1])
+                left += 1
+
+            max_len = max(max_len, right - left + 1)
+
+        return max_len
