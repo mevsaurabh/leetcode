@@ -1,0 +1,17 @@
+class Solution:
+    def bracketNumbers(self, s):
+        n = len(s)
+        dp = [0] * n
+        stack = []
+        count = 1
+
+        for i in range(n):
+            if s[i] == '(':
+                stack.append((i, count))
+                dp[i] = count
+                count += 1
+            elif s[i] == ')' and stack:
+                open_index, open_count = stack.pop()
+                dp[i] = open_count
+
+        return [num for num in dp if num != 0]
