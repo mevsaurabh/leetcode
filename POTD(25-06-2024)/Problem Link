@@ -1,0 +1,1 @@
+https://www.geeksforgeeks.org/problems/left-rotate-matrix-k-times2351/1
