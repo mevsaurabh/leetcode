@@ -1,0 +1,16 @@
+class Solution:
+    def bstToGst(self, root: TreeNode) -> TreeNode:
+        self.sum = 0
+        
+        def reverseInorder(node):
+            if not node:
+                return
+
+            reverseInorder(node.right)
+            self.sum += node.val
+            node.val = self.sum
+
+            reverseInorder(node.left)
+            
+        reverseInorder(root)
+        return root
